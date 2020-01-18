@@ -2,7 +2,7 @@
 
 Name:           pyatspi
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for at-spi
 
 Group:          Development/Languages
@@ -99,6 +99,9 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.
 
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2.8.0-3
+- Mass rebuild 2013-12-27
+
 * Mon Apr 15 2013 Rui Matos <rmatos@redhat.com> - 2.8.0-2
 - Don't depend on python3 in RHEL
 
