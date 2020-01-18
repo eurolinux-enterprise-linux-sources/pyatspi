@@ -32,7 +32,6 @@ from pyatspi.hypertext import *
 from pyatspi.image import *
 from pyatspi.selection import *
 from pyatspi.table import *
-from pyatspi.tablecell import *
 from pyatspi.value import *
 from pyatspi.appevent import *
 from pyatspi.interface import *
@@ -139,19 +138,18 @@ Atspi.Accessible.toolkitName = property(fget=Atspi.Accessible.get_toolkit_name)
 Atspi.Accessible.toolkitVersion = property(fget=Atspi.Accessible.get_toolkit_version)
 Atspi.Accessible.atspiVersion = property(fget=Atspi.Accessible.get_atspi_version)
 
-Atspi.Accessible.queryAction = lambda x: Action(getInterface(Atspi.Accessible.get_action_iface, x))
-Atspi.Accessible.queryCollection = lambda x: Collection(getInterface(Atspi.Accessible.get_collection_iface, x))
-Atspi.Accessible.queryComponent = lambda x: Component(getInterface(Atspi.Accessible.get_component_iface, x))
-Atspi.Accessible.queryDocument = lambda x: Document(getInterface(Atspi.Accessible.get_document_iface, x))
-Atspi.Accessible.queryEditableText = lambda x: EditableText(getInterface(Atspi.Accessible.get_editable_text_iface, x))
+Atspi.Accessible.queryAction = lambda x: Action(getInterface(Atspi.Accessible.get_action, x))
+Atspi.Accessible.queryCollection = lambda x: Collection(getInterface(Atspi.Accessible.get_collection, x))
+Atspi.Accessible.queryComponent = lambda x: Component(getInterface(Atspi.Accessible.get_component, x))
+Atspi.Accessible.queryDocument = lambda x: Document(getInterface(Atspi.Accessible.get_document, x))
+Atspi.Accessible.queryEditableText = lambda x: EditableText(getInterface(Atspi.Accessible.get_editable_text, x))
 Atspi.Accessible.queryHyperlink = lambda x: getInterface(Atspi.Accessible.get_hyperlink, x)
-Atspi.Accessible.queryHypertext = lambda x: Hypertext(getInterface(Atspi.Accessible.get_hypertext_iface, x))
-Atspi.Accessible.queryImage = lambda x: Image(getInterface(Atspi.Accessible.get_image_iface, x))
-Atspi.Accessible.querySelection = lambda x: Selection(getInterface(Atspi.Accessible.get_selection_iface, x))
-Atspi.Accessible.queryTable = lambda x: Table(getInterface(Atspi.Accessible.get_table_iface, x))
-Atspi.Accessible.queryTableCell = lambda x: TableCell(getInterface(Atspi.Accessible.get_table_cell, x))
-Atspi.Accessible.queryText = lambda x: Text(getInterface(Atspi.Accessible.get_text_iface, x))
-Atspi.Accessible.queryValue = lambda x: Value(getInterface(Atspi.Accessible.get_value_iface, x))
+Atspi.Accessible.queryHypertext = lambda x: Hypertext(getInterface(Atspi.Accessible.get_hypertext, x))
+Atspi.Accessible.queryImage = lambda x: Image(getInterface(Atspi.Accessible.get_image, x))
+Atspi.Accessible.querySelection = lambda x: Selection(getInterface(Atspi.Accessible.get_selection, x))
+Atspi.Accessible.queryTable = lambda x: Table(getInterface(Atspi.Accessible.get_table, x))
+Atspi.Accessible.queryText = lambda x: Text(getInterface(Atspi.Accessible.get_text, x))
+Atspi.Accessible.queryValue = lambda x: Value(getInterface(Atspi.Accessible.get_value, x))
 
 # Doing this here since otherwise we'd have import recursion
 interface.queryAction = lambda x: Action(getInterface(Atspi.Accessible.get_action, x.obj))
@@ -164,7 +162,6 @@ interface.queryHypertext = lambda x: Hypertext(getInterface(Atspi.Accessible.get
 interface.queryImage = lambda x: Image(getInterface(Atspi.Accessible.get_image, x.obj))
 interface.querySelection = lambda x: Selection(getInterface(Atspi.Accessible.get_selection, x.obj))
 interface.queryTable = lambda x: Table(getInterface(Atspi.Accessible.get_table, x.obj))
-interface.queryTableCell = lambda x: Table(getInterface(Atspi.Accessible.get_table_cell, x.obj))
 interface.queryText = lambda x: Text(getInterface(Atspi.Accessible.get_text, x.obj))
 interface.queryValue = lambda x: Value(getInterface(Atspi.Accessible.get_value, x.obj))
 
@@ -211,10 +208,6 @@ RELATION_POPUP_FOR = Atspi.RelationType.POPUP_FOR
 RELATION_PARENT_WINDOW_OF = Atspi.RelationType.PARENT_WINDOW_OF
 RELATION_DESCRIPTION_FOR = Atspi.RelationType.DESCRIPTION_FOR
 RELATION_DESCRIBED_BY = Atspi.RelationType.DESCRIBED_BY
-RELATION_DETAILS = Atspi.RelationType.DETAILS
-RELATION_DETAILS_FOR = Atspi.RelationType.DETAILS_FOR
-RELATION_ERROR_MESSAGE = Atspi.RelationType.ERROR_MESSAGE
-RELATION_ERROR_FOR = Atspi.RelationType.ERROR_FOR
 
 # Build a dictionary mapping relation values to names based on the prefix of the enum constants.
 

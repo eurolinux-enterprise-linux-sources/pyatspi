@@ -1,58 +1,35 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.26.0
-Release:        3%{?dist}
+Version:        2.8.0
+Release:        2%{?dist}
 Summary:        Python bindings for at-spi
 
 Group:          Development/Languages
 License:        LGPLv2 and GPLv2
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
 #VCS: git:git://git.gnome.org/pyatspi
-Source0:        http://download.gnome.org/sources/pyatspi/2.26/%{name}-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/pyatspi/2.8/%{name}-%{version}.tar.xz
 
 BuildRequires:  python2-devel
-# For tests
-BuildRequires:  pkgconfig(dbus-1) >= 1.0
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(dbus-glib-1) >= 0.7.0
-BuildRequires:  pkgconfig(gobject-2.0) >= 2.0.0
-BuildRequires:  pkgconfig(gmodule-2.0) >= 2.0.0
-BuildRequires:  pkgconfig(libxml-2.0) >= 2.0.0
-BuildRequires:  pkgconfig(atk) >= 2.11.2
-BuildRequires:  pkgconfig(gtk+-2.0) >= 2.10.0
-BuildRequires:  pkgconfig(pygobject-3.0) >= 2.90.1
-BuildRequires:  python-dbus
-BuildRequires:  python-enum34
-
 %if !0%{?rhel}
 BuildRequires:  python3-devel
-BuildRequires:  python3-dbus
 %endif
+BuildRequires:  pygobject3-devel >= 2.90.1
+
+Requires:       at-spi2-core
+Requires:       pygobject3
 
 BuildArch:      noarch
 
-%global _description\
-at-spi allows assistive technologies to access GTK-based\
-applications. Essentially it exposes the internals of applications for\
-automation, so tools such as screen readers, magnifiers, or even\
-scripting interfaces can query and interact with GUI controls.\
-\
-This package includes a python2 client library for at-spi.\
+%description
+at-spi allows assistive technologies to access GTK-based
+applications. Essentially it exposes the internals of applications for
+automation, so tools such as screen readers, magnifiers, or even
+scripting interfaces can query and interact with GUI controls.
 
+This package includes a python2 client library for at-spi.
 
-%description %_description
-
-%package -n python2-pyatspi
-Summary: %summary
-Requires:       at-spi2-core
-Requires:       python-gobject
-%{?python_provide:%python_provide python2-pyatspi}
-# Remove before F30
-Provides: pyatspi%{?_isa} = %{version}-%{release}
-Obsoletes: pyatspi < %{version}-%{release}
-
-%description -n python2-pyatspi %_description
 
 %if !0%{?rhel}
 %package -n python3-pyatspi
@@ -71,7 +48,7 @@ This package includes a python3 client library for at-spi.
 
 
 %prep
-%autosetup -p1
+%setup -q
 
 %if !0%{?rhel}
 # Make a copy of the source tree for building the python3 module
@@ -82,24 +59,24 @@ cp -a . %{py3dir}
 
 %build
 # Build the python2 module
-%configure --with-python=python2 --enable-tests
+%configure --with-python=python2
 make
 
 %if !0%{?rhel}
 # Build the python3 module
 pushd %{py3dir}
-%configure --with-python=python3 --enable-tests
+%configure --with-python=python3
 make
 popd
 %endif
 
 
 %install
-%make_install
+make install DESTDIR=$RPM_BUILD_ROOT
 
 %if !0%{?rhel}
 pushd %{py3dir}
-%make_install
+make install DESTDIR=$RPM_BUILD_ROOT
 popd
 
 # Fix up the shebang for python3 example
@@ -107,123 +84,21 @@ cp -a examples python3-examples
 sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.py
 %endif
 
-%check
-# Done by the 'build' step, with --enable-tests
 
-
-%files -n python2-pyatspi
-%license COPYING COPYING.GPL
-%doc AUTHORS README
+%files
+%doc COPYING COPYING.GPL AUTHORS README
 %doc examples/magFocusTracker.py
-%{python2_sitelib}/pyatspi/
+%{python_sitelib}/pyatspi/
 
 %if !0%{?rhel}
 %files -n python3-pyatspi
-%license COPYING COPYING.GPL
-%doc AUTHORS README
+%doc COPYING COPYING.GPL AUTHORS README
 %doc python3-examples/magFocusTracker.py
 %{python3_sitelib}/pyatspi/
 %endif
 
 
 %changelog
-* Mon Jun 11 2018 Ray Strode <rstrode@redhat.com> - 2.26.0-3
-- Require python-gobject instead of python2-gobject
-  Related: #1569757
-
-* Wed Jun 06 2018 Richard Hughes <rhughes@redhat.com> - 2.26.0-2
-- Update to 2.26.0
-- Resolves: #1569757
-
-* Tue Jan 17 2017 Kalev Lember <klember@redhat.com> - 2.20.3-1
-- Update to 2.20.3
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.20.2-2
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Mon May 09 2016 Kalev Lember <klember@redhat.com> - 2.20.2-1
-- Update to 2.20.2
-
-* Wed Apr 13 2016 Kalev Lember <klember@redhat.com> - 2.20.1-1
-- Update to 2.20.1
-
-* Tue Mar 22 2016 Kalev Lember <klember@redhat.com> - 2.20.0-1
-- Update to 2.20.0
-
-* Tue Mar 01 2016 Richard Hughes <rhughes@redhat.com> - 2.19.91-1
-- Update to 2.19.91
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.18.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
-
-* Mon Sep 21 2015 Kalev Lember <klember@redhat.com> - 2.18.0-1
-- Update to 2.18.0
-
-* Mon Aug 17 2015 Kalev Lember <klember@redhat.com> - 2.17.90-1
-- Update to 2.17.90
-- Use make_install macro
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.16.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue Mar 24 2015 Kalev Lember <kalevlember@gmail.com> - 2.16.0-1
-- Update to 2.16.0
-- Use license macro for the COPYING files
-
-* Tue Feb 17 2015 Richard Hughes <rhughes@redhat.com> - 2.15.90-1
-- Update to 2.15.90
-
-* Tue Feb 03 2015 Richard Hughes <rhughes@redhat.com> - 2.15.4-1
-- Update to 2.15.4
-
-* Fri Dec 19 2014 Richard Hughes <rhughes@redhat.com> - 2.15.3-1
-- Update to 2.15.3
-
-* Mon Sep 22 2014 Kalev Lember <kalevlember@gmail.com> - 2.14.0-1
-- Update to 2.14.0
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.12.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Tue May 27 2014 Kalev Lember <kalevlember@gmail.com> - 2.12.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
-
-* Mon Mar 24 2014 Kalev Lember <kalevlember@gmail.com> - 2.12.0-1
-- Update to 2.12.0
-
-* Tue Mar 18 2014 Richard Hughes <rhughes@redhat.com> - 2.11.92-1
-- Update to 2.11.92
-
-* Wed Feb 19 2014 Richard Hughes <rhughes@redhat.com> - 2.11.90-1
-- Update to 2.11.90
-
-* Tue Dec 17 2013 Richard Hughes <rhughes@redhat.com> - 2.11.3-1
-- Update to 2.11.3
-
-* Tue Nov 19 2013 Richard Hughes <rhughes@redhat.com> - 2.11.2-1
-- Update to 2.11.2
-
-* Wed Sep 25 2013 Kalev Lember <kalevlember@gmail.com> - 2.10.0-1
-- Update to 2.10.0
-
-* Tue Sep 17 2013 Kalev Lember <kalevlember@gmail.com> - 2.9.92-1
-- Update to 2.9.92
-
-* Thu Aug 22 2013 Kalev Lember <kalevlember@gmail.com> - 2.9.90-1
-- Update to 2.9.90
-
-* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.9.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Thu Jun 20 2013 Kalev Lember <kalevlember@gmail.com> - 2.9.3-1
-- Update to 2.9.3
-
-* Sun Jun 02 2013 Kalev Lember <kalevlember@gmail.com> - 2.9.2-1
-- Update to 2.9.2
-
 * Mon Apr 15 2013 Rui Matos <rmatos@redhat.com> - 2.8.0-2
 - Don't depend on python3 in RHEL
 
@@ -361,7 +236,7 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.
 * Wed Feb  3 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-2
 - Relocate
 
-* Sun Jan 17 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-1
+* Sun Jan 16 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-1
 - Update to 0.1.5
 
 * Thu Jan  7 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.4-3

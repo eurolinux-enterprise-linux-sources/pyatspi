@@ -111,6 +111,9 @@ class Registry(object):
 
                 self.has_implementations = True
 
+                # TODO: Move to libatspi
+                _os.environ["AT_SPI_CLIENT"] = "1"
+
                 self.async = False	# not fully supported yet
                 self.started = False
                 self.event_listeners = dict()

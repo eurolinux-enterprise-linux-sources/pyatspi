@@ -13,7 +13,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from gi.repository import GObject, GLib
+import gobject
 from Events import Events
 
 import traceback
@@ -104,14 +104,14 @@ class PasyTest(PasyTestStep):
 
 	def entry(self):
 		self._iter = self._test_iterator()
-		GLib.idle_add(self.idle_handler)
+		gobject.idle_add(self.idle_handler)
 
 	def idle_handler(self):
 		try:
 			step = self._iter.next()
 			def finished_handler():
 				if step.state == PASY_TEST_WIN or self._cont == True:
-					GLib.idle_add(self.idle_handler)
+					gobject.idle_add(self.idle_handler)
 				elif step.state == PASY_TEST_FAIL and self._cont == False:
 					self.fail("Sub test %s Failed" % step._name)
 			step.events.finished += finished_handler

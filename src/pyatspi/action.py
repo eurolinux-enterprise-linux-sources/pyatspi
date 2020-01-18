@@ -14,6 +14,7 @@
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 from gi.repository import Atspi
+from pyatspi.enum import *
 from pyatspi.utils import *
 from pyatspi.interface import *
 
@@ -65,7 +66,7 @@ class Action(interface):
                 @return : a string containing the description of the specified
                 action.
                 """
-                return Atspi.Action.get_action_description(self.obj, index)
+                return Atspi.Action.get_description(self.obj, index)
 
         def getKeyBinding(self, index):
                 """
@@ -88,7 +89,7 @@ class Action(interface):
                 rather than the result of invoking the action.
                 @return : a string containing the name of the specified action.
                 """
-                return Atspi.Action.get_action_name(self.obj, index)
+                return Atspi.Action.get_name(self.obj, index)
 
         def getLocalizedName(self, index):
                 """

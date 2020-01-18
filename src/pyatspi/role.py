@@ -12,11 +12,11 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-from pyatspi.atspienum import *
+from pyatspi.enum import Enum as _Enum
 
 #------------------------------------------------------------------------------
 
-class Role(AtspiEnum):
+class Role(_Enum):
         _enum_lookup = {
                 0:'ROLE_INVALID',
                 1:'ROLE_ACCELERATOR_LABEL',
@@ -122,28 +122,7 @@ class Role(AtspiEnum):
                 101:'ROLE_NOTIFICATION',
                 102:'ROLE_INFO_BAR',
                 103:'ROLE_LEVEL_BAR',
-                104:'ROLE_TITLE_BAR',
-                105:'ROLE_BLOCK_QUOTE',
-                106:'ROLE_AUDIO',
-                107:'ROLE_VIDEO',
-                108:'ROLE_DEFINITION',
-                109:'ROLE_ARTICLE',
-                110:'ROLE_LANDMARK',
-                111:'ROLE_LOG',
-                112:'ROLE_MARQUEE',
-                113:'ROLE_MATH',
-                114:'ROLE_RATING',
-                115:'ROLE_TIMER',
-                116:'ROLE_STATIC',
-                117:'ROLE_MATH_FRACTION',
-                118:'ROLE_MATH_ROOT',
-                119:'ROLE_SUBSCRIPT',
-                120:'ROLE_SUPERSCRIPT',
-                121:'ROLE_DESCRIPTION_LIST',
-                122:'ROLE_DESCRIPTION_TERM',
-                123:'ROLE_DESCRIPTION_VALUE',
-                124:'ROLE_FOOTNOTE',
-                125:'ROLE_LAST_DEFINED',
+                104:'ROLE_LAST_DEFINED',
         }
 
 ROLE_ACCELERATOR_LABEL = Role(1)
@@ -151,10 +130,7 @@ ROLE_ALERT = Role(2)
 ROLE_ANIMATION = Role(3)
 ROLE_APPLICATION = Role(75)
 ROLE_ARROW = Role(4)
-ROLE_ARTICLE = Role(109)
-ROLE_AUDIO = Role(106)
 ROLE_AUTOCOMPLETE = Role(76)
-ROLE_BLOCK_QUOTE = Role(105)
 ROLE_CALENDAR = Role(5)
 ROLE_CANVAS = Role(6)
 ROLE_CAPTION = Role(81)
@@ -166,10 +142,6 @@ ROLE_COLUMN_HEADER = Role(10)
 ROLE_COMBO_BOX = Role(11)
 ROLE_COMMENT = Role(97)
 ROLE_DATE_EDITOR = Role(12)
-ROLE_DEFINITION = Role(108)
-ROLE_DESCRIPTION_LIST = Role(121)
-ROLE_DESCRIPTION_TERM = Role(122)
-ROLE_DESCRIPTION_VALUE = Role(123)
 ROLE_DESKTOP_FRAME = Role(14)
 ROLE_DESKTOP_ICON = Role(13)
 ROLE_DIAL = Role(15)
@@ -191,7 +163,6 @@ ROLE_FILLER = Role(20)
 ROLE_FOCUS_TRAVERSABLE = Role(21)
 ROLE_FONT_CHOOSER = Role(22)
 ROLE_FOOTER = Role(72)
-ROLE_FOOTNOTE = Role(124)
 ROLE_FORM = Role(87)
 ROLE_FRAME = Role(23)
 ROLE_GLASS_PANE = Role(24)
@@ -207,19 +178,13 @@ ROLE_INPUT_METHOD_WINDOW = Role(89)
 ROLE_INTERNAL_FRAME = Role(28)
 ROLE_INVALID = Role(0)
 ROLE_LABEL = Role(29)
-ROLE_LANDMARK = Role(110)
-ROLE_LAST_DEFINED = Role(125)
+ROLE_LAST_DEFINED = Role(103)
 ROLE_LAYERED_PANE = Role(30)
 ROLE_LEVEL_BAR = Role(103)
 ROLE_LINK = Role(88)
 ROLE_LIST = Role(31)
 ROLE_LIST_BOX = Role(98)
 ROLE_LIST_ITEM = Role(32)
-ROLE_LOG = Role(111)
-ROLE_MARQUEE = Role(112)
-ROLE_MATH = Role(113)
-ROLE_MATH_FRACTION = Role(117)
-ROLE_MATH_ROOT = Role(118)
 ROLE_MENU = Role(33)
 ROLE_MENU_BAR = Role(34)
 ROLE_MENU_ITEM = Role(35)
@@ -236,7 +201,6 @@ ROLE_PROGRESS_BAR = Role(42)
 ROLE_PUSH_BUTTON = Role(43)
 ROLE_RADIO_BUTTON = Role(44)
 ROLE_RADIO_MENU_ITEM = Role(45)
-ROLE_RATING = Role(114)
 ROLE_REDUNDANT_OBJECT = Role(86)
 ROLE_ROOT_PANE = Role(46)
 ROLE_ROW_HEADER = Role(47)
@@ -248,10 +212,7 @@ ROLE_SEPARATOR = Role(50)
 ROLE_SLIDER = Role(51)
 ROLE_SPIN_BUTTON = Role(52)
 ROLE_SPLIT_PANE = Role(53)
-ROLE_STATIC = Role(116)
 ROLE_STATUS_BAR = Role(54)
-ROLE_SUBSCRIPT = Role(119)
-ROLE_SUPERSCRIPT = Role(120)
 ROLE_TABLE = Role(55)
 ROLE_TABLE_CELL = Role(56)
 ROLE_TABLE_COLUMN_HEADER = Role(57)
@@ -260,8 +221,6 @@ ROLE_TABLE_ROW_HEADER = Role(58)
 ROLE_TEAROFF_MENU_ITEM = Role(59)
 ROLE_TERMINAL = Role(60)
 ROLE_TEXT = Role(61)
-ROLE_TIMER = Role(115)
-ROLE_TITLE_BAR = Role(104)
 ROLE_TOGGLE_BUTTON = Role(62)
 ROLE_TOOL_BAR = Role(63)
 ROLE_TOOL_TIP = Role(64)
@@ -269,7 +228,6 @@ ROLE_TREE = Role(65)
 ROLE_TREE_ITEM = Role(91)
 ROLE_TREE_TABLE = Role(66)
 ROLE_UNKNOWN = Role(67)
-ROLE_VIDEO = Role(107)
 ROLE_VIEWPORT = Role(68)
 ROLE_WINDOW = Role(69)
 
@@ -376,23 +334,6 @@ ROLE_NAMES = {
         ROLE_NOTIFICATION:'notification',
         ROLE_INFO_BAR:'info bar',
         ROLE_LEVEL_BAR:'level bar',
-        ROLE_TITLE_BAR:'title bar',
-        ROLE_BLOCK_QUOTE:'block quote',
-        ROLE_AUDIO:'audio',
-        ROLE_VIDEO:'video',
-        ROLE_DEFINITION:'definition',
-        ROLE_ARTICLE:'article',
-        ROLE_LANDMARK:'landmark',
-        ROLE_LOG:'log',
-        ROLE_MARQUEE:'marquee',
-        ROLE_MATH:'math',
-        ROLE_RATING:'rating',
-        ROLE_TIMER:'timer',
-        ROLE_STATIC:'static',
-        ROLE_MATH_FRACTION:'math fraction',
-        ROLE_MATH_ROOT: 'math root',
-        ROLE_SUBSCRIPT: 'subscript',
-        ROLE_SUPERSCRIPT: 'superscript',
 }
 
 #END----------------------------------------------------------------------------

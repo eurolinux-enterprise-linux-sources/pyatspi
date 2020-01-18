@@ -1,5 +1,5 @@
 import dbus
-from gi.repository import GObject
+import gobject
 import os.path
 
 from xml.dom import minidom
@@ -8,8 +8,8 @@ import os
 from pasytest import PasyTest as _PasyTest
 
 import pyatspi
-from pyatspi.Accessibility import Component
-from pyatspi.utils import BoundingBox
+from Accessibility import Component
+from Accessibility import BoundingBox
 
 ATSPI_LAYER_WIDGET = 3
 ATSPI_LAYER_MDI = 4

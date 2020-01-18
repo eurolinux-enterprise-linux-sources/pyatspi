@@ -1,5 +1,5 @@
 import dbus
-from gi.repository import GObject
+import gobject
 import os.path
 
 from xml.dom import minidom

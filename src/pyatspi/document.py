@@ -45,7 +45,7 @@ class Document(interface):
                 attribute, or an empty string if the attribute is unspecified
                 for the object.
                 """
-                return Atspi.Document.get_document_attribute_value(self.obj, key)
+                return Atspi.Document.get_attribute_value(self.obj, key)
 
         def getAttributes(self):
                 """
@@ -55,7 +55,7 @@ class Document(interface):
                 @return an AttributeSet containing the attributes of the document,
                 as name-value pairs.
                 """
-                ret = Atspi.Document.get_document_attributes(self.obj)
+                ret = Atspi.Document.get_attributes(self.obj)
                 return [key + ':' + value for key, value in ret.items()]
 
         def getLocale(self):
@@ -66,21 +66,5 @@ class Document(interface):
                 description.
                 """
                 return Atspi.Document.get_locale(self.obj)
-
-        def getCurrentPageNumber(self):
-                """
-                Gets the current page number associated with the document.
-                @return a integer with the current page number. -1 if error
-                or unknown.
-                """
-                return Atspi.Document.get_current_page_number(self.obj)
-
-        def getPageCount(self):
-                """
-                Gets the page count of the document.
-                @return a integer with the page count of the document.
-                -1 if error or unknown.
-                """
-                return Atspi.Document.get_page_count(self.obj)
 
 #END----------------------------------------------------------------------------

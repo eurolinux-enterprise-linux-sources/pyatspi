@@ -1,6 +1,6 @@
 #!python3
 
-from gi.repository import GObject, GLib
+import gobject
 import dbus
 import sys
 import os
@@ -81,7 +81,7 @@ def main(argv):
 	test_object = test_class(bus, name)
 	test_object.run()
 
-	loop = GLib.MainLoop()
+	loop = gobject.MainLoop()
 
 	def finished_handler():
 		loop.quit()

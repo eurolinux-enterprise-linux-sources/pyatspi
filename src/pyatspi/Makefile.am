@@ -5,7 +5,7 @@ pyatspi_PYTHON = \
                 appevent.py             \
 		constants.py		\
 		deviceevent.py		\
-                atspienum.py            \
+                enum.py                 \
 		__init__.py		\
 	action.py \
 	application.py \
@@ -21,7 +21,6 @@ pyatspi_PYTHON = \
 	selection.py \
 		state.py		\
 table.py \
-tablecell.py \
 	text.py \
 		utils.py \
 	value.py
