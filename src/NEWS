@@ -1,7 +1,18 @@
-What's new in pyatspi 2.20.3:
+What's new in pyatspi 2.25.3:
 
-* Rename enum module and Enum class not to conflict with stdlib (needed
-  for python 3.6).
+* Add error-message, error-for, details, and details-for relation types
+
+What's new in pyatspi 2.25.2:
+
+* Add some missing roles to correspond with atk (description list,
+  description term, description value, and footnote).
+
+What's new in pyatspi 2.24.0:
+
+* Fix an invalid escape sequence.
+
+* Rename enum class to atspienum to avoid name conflict; fixes build with
+  python 3.6.
 
 What's new in pyatspi 2.20.2:
 
@@ -12,13 +23,13 @@ What's new in pyatspi 2.20.1:
 
 * gettext: Don't modify endOffset (bgo#721860).
 
-What's new in pyatspi 2.17.90:
-
-* Call gi.require_version() before import
-
 What's new in pyatspi 2.19.91:
 
 * Fix text.getDefaultAttributeSet (bgo#752928).
+
+What's new in pyatspi 2.17.90:
+
+* Call gi.require_version() before import
 
 What's new in pyatspi 2.15.90:
 

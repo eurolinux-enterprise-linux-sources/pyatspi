@@ -1,35 +1,58 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.20.3
-Release:        1%{?dist}
+Version:        2.26.0
+Release:        3%{?dist}
 Summary:        Python bindings for at-spi
 
 Group:          Development/Languages
 License:        LGPLv2 and GPLv2
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
 #VCS: git:git://git.gnome.org/pyatspi
-Source0:        http://download.gnome.org/sources/pyatspi/2.20/%{name}-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/pyatspi/2.26/%{name}-%{version}.tar.xz
 
 BuildRequires:  python2-devel
+# For tests
+BuildRequires:  pkgconfig(dbus-1) >= 1.0
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(dbus-glib-1) >= 0.7.0
+BuildRequires:  pkgconfig(gobject-2.0) >= 2.0.0
+BuildRequires:  pkgconfig(gmodule-2.0) >= 2.0.0
+BuildRequires:  pkgconfig(libxml-2.0) >= 2.0.0
+BuildRequires:  pkgconfig(atk) >= 2.11.2
+BuildRequires:  pkgconfig(gtk+-2.0) >= 2.10.0
+BuildRequires:  pkgconfig(pygobject-3.0) >= 2.90.1
+BuildRequires:  python-dbus
+BuildRequires:  python-enum34
+
 %if !0%{?rhel}
 BuildRequires:  python3-devel
+BuildRequires:  python3-dbus
 %endif
-BuildRequires:  pygobject3-devel >= 2.90.1
-
-Requires:       at-spi2-core >= 2.22.0
-Requires:       pygobject3
 
 BuildArch:      noarch
 
-%description
-at-spi allows assistive technologies to access GTK-based
-applications. Essentially it exposes the internals of applications for
-automation, so tools such as screen readers, magnifiers, or even
-scripting interfaces can query and interact with GUI controls.
+%global _description\
+at-spi allows assistive technologies to access GTK-based\
+applications. Essentially it exposes the internals of applications for\
+automation, so tools such as screen readers, magnifiers, or even\
+scripting interfaces can query and interact with GUI controls.\
+\
+This package includes a python2 client library for at-spi.\
 
-This package includes a python2 client library for at-spi.
 
+%description %_description
+
+%package -n python2-pyatspi
+Summary: %summary
+Requires:       at-spi2-core
+Requires:       python-gobject
+%{?python_provide:%python_provide python2-pyatspi}
+# Remove before F30
+Provides: pyatspi%{?_isa} = %{version}-%{release}
+Obsoletes: pyatspi < %{version}-%{release}
+
+%description -n python2-pyatspi %_description
 
 %if !0%{?rhel}
 %package -n python3-pyatspi
@@ -48,7 +71,7 @@ This package includes a python3 client library for at-spi.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %if !0%{?rhel}
 # Make a copy of the source tree for building the python3 module
@@ -59,13 +82,13 @@ cp -a . %{py3dir}
 
 %build
 # Build the python2 module
-%configure --with-python=python2
+%configure --with-python=python2 --enable-tests
 make
 
 %if !0%{?rhel}
 # Build the python3 module
 pushd %{py3dir}
-%configure --with-python=python3
+%configure --with-python=python3 --enable-tests
 make
 popd
 %endif
@@ -84,12 +107,15 @@ cp -a examples python3-examples
 sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.py
 %endif
 
+%check
+# Done by the 'build' step, with --enable-tests
 
-%files
+
+%files -n python2-pyatspi
 %license COPYING COPYING.GPL
 %doc AUTHORS README
 %doc examples/magFocusTracker.py
-%{python_sitelib}/pyatspi/
+%{python2_sitelib}/pyatspi/
 
 %if !0%{?rhel}
 %files -n python3-pyatspi
@@ -101,6 +127,14 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.
 
 
 %changelog
+* Mon Jun 11 2018 Ray Strode <rstrode@redhat.com> - 2.26.0-3
+- Require python-gobject instead of python2-gobject
+  Related: #1569757
+
+* Wed Jun 06 2018 Richard Hughes <rhughes@redhat.com> - 2.26.0-2
+- Update to 2.26.0
+- Resolves: #1569757
+
 * Tue Jan 17 2017 Kalev Lember <klember@redhat.com> - 2.20.3-1
 - Update to 2.20.3
 

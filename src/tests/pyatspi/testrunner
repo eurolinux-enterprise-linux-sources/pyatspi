@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!python3
 
 from gi.repository import GObject, GLib
 import dbus
