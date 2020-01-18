@@ -12,11 +12,11 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-from pyatspi.enum import Enum as _Enum
+from pyatspi.atspienum import *
 
 #------------------------------------------------------------------------------
 
-class Role(_Enum):
+class Role(AtspiEnum):
         _enum_lookup = {
                 0:'ROLE_INVALID',
                 1:'ROLE_ACCELERATOR_LABEL',
@@ -134,7 +134,12 @@ class Role(_Enum):
                 113:'ROLE_MATH',
                 114:'ROLE_RATING',
                 115:'ROLE_TIMER',
-                116:'ROLE_LAST_DEFINED',
+                116:'ROLE_STATIC',
+                117:'ROLE_MATH_FRACTION',
+                118:'ROLE_MATH_ROOT',
+                119:'ROLE_SUBSCRIPT',
+                120:'ROLE_SUPERSCRIPT',
+                121:'ROLE_LAST_DEFINED',
         }
 
 ROLE_ACCELERATOR_LABEL = Role(1)
@@ -195,7 +200,7 @@ ROLE_INTERNAL_FRAME = Role(28)
 ROLE_INVALID = Role(0)
 ROLE_LABEL = Role(29)
 ROLE_LANDMARK = Role(110)
-ROLE_LAST_DEFINED = Role(116)
+ROLE_LAST_DEFINED = Role(121)
 ROLE_LAYERED_PANE = Role(30)
 ROLE_LEVEL_BAR = Role(103)
 ROLE_LINK = Role(88)
@@ -205,6 +210,8 @@ ROLE_LIST_ITEM = Role(32)
 ROLE_LOG = Role(111)
 ROLE_MARQUEE = Role(112)
 ROLE_MATH = Role(113)
+ROLE_MATH_FRACTION = Role(117)
+ROLE_MATH_ROOT = Role(118)
 ROLE_MENU = Role(33)
 ROLE_MENU_BAR = Role(34)
 ROLE_MENU_ITEM = Role(35)
@@ -233,7 +240,10 @@ ROLE_SEPARATOR = Role(50)
 ROLE_SLIDER = Role(51)
 ROLE_SPIN_BUTTON = Role(52)
 ROLE_SPLIT_PANE = Role(53)
+ROLE_STATIC = Role(116)
 ROLE_STATUS_BAR = Role(54)
+ROLE_SUBSCRIPT = Role(119)
+ROLE_SUPERSCRIPT = Role(120)
 ROLE_TABLE = Role(55)
 ROLE_TABLE_CELL = Role(56)
 ROLE_TABLE_COLUMN_HEADER = Role(57)
@@ -370,6 +380,11 @@ ROLE_NAMES = {
         ROLE_MATH:'math',
         ROLE_RATING:'rating',
         ROLE_TIMER:'timer',
+        ROLE_STATIC:'static',
+        ROLE_MATH_FRACTION:'math fraction',
+        ROLE_MATH_ROOT: 'math root',
+        ROLE_SUBSCRIPT: 'subscript',
+        ROLE_SUPERSCRIPT: 'superscript',
 }
 
 #END----------------------------------------------------------------------------

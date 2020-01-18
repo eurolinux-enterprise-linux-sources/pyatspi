@@ -1,15 +1,15 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.14.0
-Release:        2%{?dist}
+Version:        2.20.3
+Release:        1%{?dist}
 Summary:        Python bindings for at-spi
 
 Group:          Development/Languages
 License:        LGPLv2 and GPLv2
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
 #VCS: git:git://git.gnome.org/pyatspi
-Source0:        http://download.gnome.org/sources/pyatspi/2.14/%{name}-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/pyatspi/2.20/%{name}-%{version}.tar.xz
 
 BuildRequires:  python2-devel
 %if !0%{?rhel}
@@ -17,7 +17,7 @@ BuildRequires:  python3-devel
 %endif
 BuildRequires:  pygobject3-devel >= 2.90.1
 
-Requires:       at-spi2-core >= 2.14.1
+Requires:       at-spi2-core >= 2.22.0
 Requires:       pygobject3
 
 BuildArch:      noarch
@@ -72,11 +72,11 @@ popd
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 %if !0%{?rhel}
 pushd %{py3dir}
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 popd
 
 # Fix up the shebang for python3 example
@@ -86,19 +86,68 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.
 
 
 %files
-%doc COPYING COPYING.GPL AUTHORS README
+%license COPYING COPYING.GPL
+%doc AUTHORS README
 %doc examples/magFocusTracker.py
 %{python_sitelib}/pyatspi/
 
 %if !0%{?rhel}
 %files -n python3-pyatspi
-%doc COPYING COPYING.GPL AUTHORS README
+%license COPYING COPYING.GPL
+%doc AUTHORS README
 %doc python3-examples/magFocusTracker.py
 %{python3_sitelib}/pyatspi/
 %endif
 
 
 %changelog
+* Tue Jan 17 2017 Kalev Lember <klember@redhat.com> - 2.20.3-1
+- Update to 2.20.3
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.20.2-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Mon May 09 2016 Kalev Lember <klember@redhat.com> - 2.20.2-1
+- Update to 2.20.2
+
+* Wed Apr 13 2016 Kalev Lember <klember@redhat.com> - 2.20.1-1
+- Update to 2.20.1
+
+* Tue Mar 22 2016 Kalev Lember <klember@redhat.com> - 2.20.0-1
+- Update to 2.20.0
+
+* Tue Mar 01 2016 Richard Hughes <rhughes@redhat.com> - 2.19.91-1
+- Update to 2.19.91
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
+* Mon Sep 21 2015 Kalev Lember <klember@redhat.com> - 2.18.0-1
+- Update to 2.18.0
+
+* Mon Aug 17 2015 Kalev Lember <klember@redhat.com> - 2.17.90-1
+- Update to 2.17.90
+- Use make_install macro
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Tue Mar 24 2015 Kalev Lember <kalevlember@gmail.com> - 2.16.0-1
+- Update to 2.16.0
+- Use license macro for the COPYING files
+
+* Tue Feb 17 2015 Richard Hughes <rhughes@redhat.com> - 2.15.90-1
+- Update to 2.15.90
+
+* Tue Feb 03 2015 Richard Hughes <rhughes@redhat.com> - 2.15.4-1
+- Update to 2.15.4
+
+* Fri Dec 19 2014 Richard Hughes <rhughes@redhat.com> - 2.15.3-1
+- Update to 2.15.3
+
 * Mon Sep 22 2014 Kalev Lember <kalevlember@gmail.com> - 2.14.0-1
 - Update to 2.14.0
 
@@ -278,7 +327,7 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' python3-examples/magFocusTracker.
 * Wed Feb  3 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-2
 - Relocate
 
-* Sun Jan 16 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-1
+* Sun Jan 17 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.5-1
 - Update to 0.1.5
 
 * Thu Jan  7 2010 Matthias Clasen <mclasen@redhat.com> - 0.1.4-3
