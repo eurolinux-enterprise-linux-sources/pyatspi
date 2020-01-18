@@ -1,0 +1,20 @@
+Install procedure
+-----------------
+
+        % gzip -cd pyatspi-2.0.0.tar.gz | tar xvf   # unpack the sources
+        % cd pyatspi-2.0.0                          # change to the toplevel directory
+        % ./configure                               # run the `configure' script
+        % make                                      # build pyatspi
+
+        [ Become root if necessary ]
+        % make install                              # install pyatspi
+
+Requirements
+------------
+
+        GNU make
+        GNU autotools
+
+        python
+        glib
+        dbus-python
